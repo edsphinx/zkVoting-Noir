@@ -10,15 +10,16 @@ contract zkVoteTest is Test {
     UltraVerifier public verifier;
 
     bytes proofBytes;
-    bytes32 merkleRoot = 0x20c77d6d51119d86868b3a37a64cd4510abd7bdb7f62a9e78e51fe8ca615a194;
-    bytes32 nullifierHash = 0x0bf0dd2fad1a8da018371f0a8dac56016d270d2e178a847a3ac724d033d1d858;
-
+    bytes32 merkleRoot =
+        0x20c77d6d51119d86868b3a37a64cd4510abd7bdb7f62a9e78e51fe8ca615a194;
+    bytes32 nullifierHash =
+        0x0bf0dd2fad1a8da018371f0a8dac56016d270d2e178a847a3ac724d033d1d858;
 
     function setUp() public {
         verifier = new UltraVerifier();
         voteContract = new zkVote(merkleRoot, address(verifier));
         voteContract.propose("First proposal", block.timestamp + 10000000);
-        
+
         string memory proof = vm.readLine("./circuits/proofs/p.proof");
         proofBytes = vm.parseBytes(proof);
     }
